@@ -100,6 +100,18 @@ public class index extends HttpServlet {
 			case "/DetailsPolicy":
 				DetailsPolicy(request,response);
 				break;
+			case "/quoteSummary":
+				quoteSummary(request,response);
+					break;
+			case "/detailsToBuy":
+				detailsToBuy(request,response);
+				break;
+			case "/Date":
+				Date(request,response);
+				break;
+			case "/toTheDate":
+				toTheDate(request,response);
+				break;
 			default:
 				RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
 				rd.forward(request, response);
@@ -265,8 +277,17 @@ public class index extends HttpServlet {
 		String address_line_2 =request.getParameter("address_line_2");
 		
 		System.out.println(address);
+		session.setAttribute("address", address);
+		session.setAttribute("state", state);
+		session.setAttribute("city", city);
+		session.setAttribute("zip", zip);
+		session.setAttribute("type", resdience_type);
+		session.setAttribute("use", resdience_use);
+		
+		
 		errors.clear();
 		HomeInfo home = new HomeInfo(address,state,city,zip,resdience_type,resdience_use,user_id,address_line_2);
+		session.setAttribute("currentHomeInfo", home);
 		System.out.println("After contructor: " + home.getAddress());
 		HomeInfoDAO h_dao = new HomeInfoDAO();
 		h_dao.StoreHomeInfo(home);
@@ -322,8 +343,15 @@ public class index extends HttpServlet {
 		Users u = (Users)session.getAttribute("currentUser");
 		int user_id = u.getUser_id();
 
+		session.setAttribute("first", first_name );
+		session.setAttribute("last",last_name );
+		session.setAttribute("retired", retiered );
+		session.setAttribute("ssn",ssn );
+		session.setAttribute("email",email );
+		session.setAttribute("birth", birth );
 		
 		HomeOwner ho = new HomeOwner(first_name,last_name,retiered,ssn,email,birth,user_id);
+		session.setAttribute("currentHomeOwner", ho);
 		HomeOwnerDAO ho_DAO=new HomeOwnerDAO();
 	ho_DAO.StoreHomeOwner(ho);
 	response.sendRedirect("propertyInfo");
@@ -344,6 +372,15 @@ private void savePropertyInfo(HttpServletRequest request, HttpServletResponse re
 	String pool = request.getParameter("pool");
 	String garage = request.getParameter("garage");
 	
+	session.setAttribute("MV", value);
+	session.setAttribute("built", built);
+	session.setAttribute("footage", footage);
+	session.setAttribute("dwelling", dwelling);
+	session.setAttribute("roof", roof);
+	session.setAttribute("halfBaths", halfBaths);
+	session.setAttribute("baths", baths);
+	session.setAttribute("pool", pool);
+	session.setAttribute("garage", garage);
 	
 	property_info pi = new property_info(value,built,footage,dwelling,roof,halfBaths,baths,pool,garage);
 	session.setAttribute("currentPropertyInfo", pi);
@@ -365,45 +402,45 @@ private void calculateCoverageDetails(HttpServletRequest request, HttpServletRes
 	int year = Integer.parseInt(currentProperty.getYear());
 	int footage = Integer.parseInt(currentProperty.getFootage());
 	
-	int marketValue = footage*120;
+	int homeValue = footage*120;
 	
 	int ALC = 5000;
-	int deductable = (int) (.01*marketValue);
+	int deductable = (int) (.01*homeValue);
 	int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-	int difference = year-currentYear;
+	int difference = currentYear-year;
 	int reduction=0;
 	if(difference<5) {
-		reduction =(int) (.1*marketValue);
+		reduction =(int) (.1*homeValue);
 	}else if(difference<10){
-		reduction = (int) (.2*marketValue);
+		reduction = (int) (.2*homeValue);
 	}else if(difference<20) {
-		reduction = (int) (.3*marketValue);
+		reduction = (int) (.3*homeValue);
 	}else if(difference>20) {
-		reduction=(int) (.5*marketValue);
+		reduction=(int) (.5*homeValue);
 	}
-	int dweleingCovereage = (int) (.50*value + reduction);
-	int rate = (int) (dweleingCovereage/200);
+	int dweleingCovereage = (int) (.50*value+homeValue);
+	double rate = (double) 0.005;
 	int detacheStructure = (int) (.10*dweleingCovereage);
 	int personalProperty = (int) (.60*dweleingCovereage);
 	int living = (int) (.20*dweleingCovereage);
-	int premium1 = rate*marketValue;
+	double premium1 =  (rate*homeValue);
 String message = currentProperty.getDwelling();
 int premium2=0;
 switch(message){
 case "single-family":
-	 premium2 = (int) (premium1*.0005);
+	 premium2 = (int) (premium1*.005);
 	break;
 case "condo":
 case "duplex":
 case "apartment":
- premium2 = (int) (premium1*.0006);
+ premium2 = (int) (premium1*.006);
  break;
 case "townhouse":
 case "rowhouse":
-premium2 = (int) (premium1*.0007);
+premium2 = (int) (premium1*.007);
 	break;
 }
-int premium = premium1+premium2;
+int premium = (int) (premium1+premium2);
 int mothlyPremium=premium/12;
 session.setAttribute("monthlyP", mothlyPremium);
 session.setAttribute("premium", premium);
@@ -451,6 +488,37 @@ private void DetailsPolicy(HttpServletRequest request, HttpServletResponse respo
 	RequestDispatcher rd = request.getRequestDispatcher("details.jsp");
 	rd.forward(request, response);
 
+}
+private void quoteSummary(HttpServletRequest request, HttpServletResponse response)
+		throws SQLException, IOException, ServletException {
+	HttpSession session = request.getSession();
+	
+	RequestDispatcher rd = request.getRequestDispatcher("buy.jsp");
+	rd.forward(request, response);
+	
+}
+private void detailsToBuy(HttpServletRequest request, HttpServletResponse response)
+		throws SQLException, IOException, ServletException {
+	HttpSession session = request.getSession();
+	
+	response.sendRedirect("quoteSummary");
+	
+			
+}
+private void Date(HttpServletRequest request, HttpServletResponse response)
+		throws SQLException, IOException, ServletException {
+	HttpSession session = request.getSession();
+	RequestDispatcher rd = request.getRequestDispatcher("buyPolicy.jsp");
+	rd.forward(request, response);
+	
+
+}
+private void toTheDate(HttpServletRequest request, HttpServletResponse response)
+		throws SQLException, IOException, ServletException {
+	HttpSession session = request.getSession();
+	
+	response.sendRedirect("Date");
+	
 }
 
 

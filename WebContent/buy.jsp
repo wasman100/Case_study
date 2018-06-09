@@ -10,6 +10,34 @@
 <style type="text/css">
   <%@include file="css/styles-gq.css" %>
 </style>
+<%Object first = session.getAttribute("first");%>
+<%Object last = session.getAttribute("last");%>
+<%Object retired=	session.getAttribute("retired" );%>
+<%Object ssn = session.getAttribute("ssn");%>
+<%Object email =session.getAttribute("email");%>
+<%Object birth = session.getAttribute("birth");%>
+<%Object monthly= session.getAttribute("monthlyP");  %>
+<%Object dc = session.getAttribute("coverage"); %>
+<%Object detached = session.getAttribute("detacheStructure"); %>
+<%Object pp = session.getAttribute("personalProperty"); %>
+<%Object living = session.getAttribute("living"); %>
+<%Object ALC = session.getAttribute("ALC"); %>
+<%Object deductable = session.getAttribute("deductable"); %>
+<%Object address = session.getAttribute("address");%>
+<%Object state = session.getAttribute("state");%>
+<%Object city = session.getAttribute("city");%>
+<%Object zip = session.getAttribute("zip");%>
+<%Object type = session.getAttribute("type");%>
+<%Object use = session.getAttribute("use");%>
+<%Object MV = session.getAttribute("MV"); %>
+<%Object built = session.getAttribute("built"); %>
+<%Object  footage = session.getAttribute("footage");%>
+<%Object  dwelling = session.getAttribute("dwelling");%>
+<%Object  roof = session.getAttribute("roof");%>
+<%Object  halfBaths = session.getAttribute("halfBaths");%>
+<%Object  baths = session.getAttribute("baths");%>
+<%Object  pool = session.getAttribute("pool");%>
+<%Object  garage = session.getAttribute("garage");%>
 </head>
 
 <body>
@@ -23,6 +51,7 @@
 		</div>
 	</div>
 	<hr />
+	<form method="post" action="toTheDate">
 	<div align="center"><input type="submit" value="Buy Quote"></span></td><br />
 	<style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;margin:0px auto;}
@@ -41,47 +70,45 @@
     <td class="tg-yw4l">Quote ID</td>
     <td class="tg-yw4l">&lt;% %&gt;</td>
     <td class="tg-yw4l">First Name</td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
+    <td class="tg-yw4l"><%=first %></td>
   </tr>
   <tr>
     <td class="tg-yw4l">Residence Type</td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
+    <td class="tg-yw4l"><%=type %></td>
     <td class="tg-yw4l">Last Name</td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
+    <td class="tg-yw4l"><%=last %></td>
   </tr>
   <tr>
-    <td class="tg-yw4l">Address Line 1</td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
+    <td class="tg-yw4l">Address</td>
+    <td class="tg-yw4l"><%=address %></td>
     <td class="tg-yw4l">Date Of Birth</td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
+    <td class="tg-yw4l"><%=birth %></td>
   </tr>
   <tr>
-    <td class="tg-yw4l">Address line 2</td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
     <td class="tg-yw4l">Is Retired?*</td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
+    <td class="tg-yw4l"><%=retired %></td>
   </tr>
   <tr>
     <td class="tg-yw4l">City</td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
+    <td class="tg-yw4l"><%=city %></td>
     <td class="tg-yw4l">Social Security Number</td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
+    <td class="tg-yw4l"><%=ssn %></td>
   </tr>
   <tr>
     <td class="tg-yw4l">State </td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
+    <td class="tg-yw4l"><%=state %></td>
     <td class="tg-yw4l">Email Address</td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
+    <td class="tg-yw4l"><%=email %></td>
   </tr>
   <tr>
     <td class="tg-yw4l">Zip</td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
+    <td class="tg-yw4l"><%=zip %> </td>
     <td class="tg-yw4l"></td>
     <td class="tg-yw4l"></td>
   </tr>
   <tr>
     <td class="tg-yw4l">Residence Use</td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
+    <td class="tg-yw4l"><%=use %></td>
     <td class="tg-yw4l"></td>
     <td class="tg-yw4l"></td>
   </tr>
@@ -101,53 +128,53 @@
     <td class="tg-yw4l">Market Value</td>
     <td class="tg-yw4l">&lt;% %&gt;</td>
     <td class="tg-yw4l">Monthly Premium</td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
+    <td class="tg-yw4l"><%=monthly %></td>
   </tr>
   <tr>
     <td class="tg-yw4l">Year Built</td>
     <td class="tg-yw4l">&lt;% %&gt;</td>
     <td class="tg-yw4l">Dwelling Coverage</td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
+    <td class="tg-yw4l"><%=dc %></td>
   </tr>
   <tr>
     <td class="tg-yw4l">Square Footage</td>
     <td class="tg-yw4l">&lt;% %&gt;</td>
     <td class="tg-yw4l">Detached Structures</td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
+    <td class="tg-yw4l"><%=detached %></td>
   </tr>
   <tr>
     <td class="tg-yw4l">Dwelling Style</td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
+    <td class="tg-yw4l"><%=dwelling %></td>
     <td class="tg-yw4l">Personal Property</td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
+    <td class="tg-yw4l"><%=pp %></td>
   </tr>
   <tr>
     <td class="tg-yw4l">Roof Material</td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
+    <td class="tg-yw4l"><%=roof %></td>
     <td class="tg-yw4l">Additional Living Expense</td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
+    <td class="tg-yw4l"><%=living %></td>
   </tr>
   <tr>
     <td class="tg-yw4l">Garage Type</td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
+    <td class="tg-yw4l"><%=garage %></td>
     <td class="tg-yw4l">Medical Expense</td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
+    <td class="tg-yw4l"><%=ALC %></td>
   </tr>
   <tr>
     <td class="tg-yw4l">Number of Full Baths</td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
+    <td class="tg-yw4l"><%=baths %></td>
     <td class="tg-yw4l">Deductible</td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
+    <td class="tg-yw4l"><%=deductable %></td>
   </tr>
   <tr>
     <td class="tg-yw4l">Number of Half Baths</td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
+    <td class="tg-yw4l"><%=halfBaths %></td>
     <td class="tg-yw4l"></td>
     <td class="tg-yw4l"></td>
   </tr>
   <tr>
     <td class="tg-yw4l">Has Swimming Pool?</td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
+    <td class="tg-yw4l"><%=pool %></td>
     <td class="tg-yw4l"></td>
     <td class="tg-yw4l"></td>
   </tr>
@@ -158,7 +185,7 @@
   </tr>
 </table></div>
 </div>
-	
+	</form>
 	
 </body>
 
