@@ -2,13 +2,13 @@ package com.perscholas.home_insurance.models;
 
 public class CoverageDetails {
  
-	private int MonthlyPremuim;
-	private int DwellingCoverage;
-	private int DetachedStructorsl;
-	private int PersonalProperty;
-	private int Additional;
-	private int  Medical;
-	private int deductible;
+	private double MonthlyPremuim;
+	private double DwellingCoverage;
+	private double DetachedStructorsl;
+	private double PersonalProperty;
+	private double Additional;
+	private double  Medical;
+	private double deductible;
 	private String quote_id;
 	
 		
@@ -39,20 +39,20 @@ public class CoverageDetails {
 	public CoverageDetails(Object monthlyP, Object coverage, Object detachedStructors, Object personalProperty,
 			Object living, Object aLC, Object deductible) {
 		super();
-		MonthlyPremuim = (int) monthlyP;
-		DwellingCoverage = (int) coverage;
-		DetachedStructorsl = (int) detachedStructors;
-		PersonalProperty = (int) personalProperty;
-		Additional = (int) living;
-		Medical = (int) aLC;
-		this.deductible = (int) deductible;
+		MonthlyPremuim =  (double) monthlyP;
+		DwellingCoverage =  (double) coverage;
+		DetachedStructorsl =  (double) detachedStructors;
+		PersonalProperty =  (double) personalProperty;
+		Additional =  (double) living;
+		Medical =  (double) aLC;
+		this.deductible =  (double) deductible;
 		
 		
 		
 	}
 
 
-	public int getMonthlyPremuim() {
+	public double getMonthlyPremuim() {
 		return MonthlyPremuim;
 	}
 
@@ -62,7 +62,7 @@ public class CoverageDetails {
 	}
 
 
-	public int getDwellingCoverage() {
+	public double getDwellingCoverage() {
 		return DwellingCoverage;
 	}
 
@@ -72,7 +72,7 @@ public class CoverageDetails {
 	}
 
 
-	public int getDetachedStructorsl() {
+	public double getDetachedStructorsl() {
 		return DetachedStructorsl;
 	}
 
@@ -82,7 +82,7 @@ public class CoverageDetails {
 	}
 
 
-	public int getPersonalProperty() {
+	public double getPersonalProperty() {
 		return PersonalProperty;
 	}
 
@@ -92,7 +92,7 @@ public class CoverageDetails {
 	}
 
 
-	public int getAdditional() {
+	public double getAdditional() {
 		return Additional;
 	}
 
@@ -102,7 +102,7 @@ public class CoverageDetails {
 	}
 
 
-	public int getMedical() {
+	public double getMedical() {
 		return Medical;
 	}
 
@@ -112,7 +112,7 @@ public class CoverageDetails {
 	}
 
 
-	public int getDeductible() {
+	public double getDeductible() {
 		return deductible;
 	}
 

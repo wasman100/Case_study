@@ -23,13 +23,13 @@ try {
 	conn = mysql.getConnection();
 	stmt=conn.prepareStatement(SAVE);
 	stmt.setString(1, CD.getQuote_id());
-	stmt.setInt(2, CD.getMonthlyPremuim());
-	stmt.setInt(3, CD.getDwellingCoverage());
-	stmt.setInt(4, CD.getDetachedStructorsl());
-	stmt.setInt(5, CD.getPersonalProperty());
-	stmt.setInt(6, CD.getAdditional());
-	stmt.setInt(7, CD.getMedical());
-	stmt.setInt(8,CD.getDeductible());
+	stmt.setDouble(2, CD.getMonthlyPremuim());
+	stmt.setDouble(3, CD.getDwellingCoverage());
+	stmt.setDouble(4, CD.getDetachedStructorsl());
+	stmt.setDouble(5, CD.getPersonalProperty());
+	stmt.setDouble(6, CD.getAdditional());
+	stmt.setDouble(7, CD.getMedical());
+	stmt.setDouble(8,CD.getDeductible());
 	
 	
 	stmt.executeUpdate();

@@ -112,6 +112,9 @@ public class index extends HttpServlet {
 			case "/toTheDate":
 				toTheDate(request,response);
 				break;
+			case "/buyingPolicy":
+				buyingPolicy(request,response);
+				break;
 			default:
 				RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
 				rd.forward(request, response);
@@ -276,7 +279,7 @@ public class index extends HttpServlet {
 		int user_id = u.getUser_id();
 		String address_line_2 =request.getParameter("address_line_2");
 		
-		System.out.println(address);
+		
 		session.setAttribute("address", address);
 		session.setAttribute("state", state);
 		session.setAttribute("city", city);
@@ -285,7 +288,7 @@ public class index extends HttpServlet {
 		session.setAttribute("use", resdience_use);
 		
 		
-		errors.clear();
+		
 		HomeInfo home = new HomeInfo(address,state,city,zip,resdience_type,resdience_use,user_id,address_line_2);
 		session.setAttribute("currentHomeInfo", home);
 		System.out.println("After contructor: " + home.getAddress());
@@ -356,12 +359,16 @@ public class index extends HttpServlet {
 	ho_DAO.StoreHomeOwner(ho);
 	response.sendRedirect("propertyInfo");
 		}
+		else {
+			response.sendRedirect("main");
+		}
 	}
 	
 	/************************************************saving property info*******************************************************/
 private void savePropertyInfo(HttpServletRequest request, HttpServletResponse response)
 		throws SQLException, IOException, ServletException {
 	HttpSession session = request.getSession();
+	if(session.getAttribute("currentUser")!=null) {
 	String value = request.getParameter("value");
 	String built = request.getParameter("built");
 	String footage = request.getParameter("footage");
@@ -387,6 +394,10 @@ private void savePropertyInfo(HttpServletRequest request, HttpServletResponse re
 	property_infoDAO pi_DAO = new property_infoDAO();
 	pi_DAO.Storepropertyinfo(pi);
 response.sendRedirect("calculateCoverageDetails");
+	}
+	else {
+		response.sendRedirect("main");
+	}
 }
 
 
@@ -397,6 +408,7 @@ response.sendRedirect("calculateCoverageDetails");
 private void calculateCoverageDetails(HttpServletRequest request, HttpServletResponse response)
 		throws SQLException, IOException, ServletException {
 	HttpSession session = request.getSession();
+	if(session.getAttribute("currentUser")!=null) {
 	property_info currentProperty = (property_info) session.getAttribute("currentPropertyInfo");
 	int value =  Integer.parseInt(currentProperty.getValue());
 	int year = Integer.parseInt(currentProperty.getYear());
@@ -425,23 +437,23 @@ private void calculateCoverageDetails(HttpServletRequest request, HttpServletRes
 	int living = (int) (.20*dweleingCovereage);
 	double premium1 =  (rate*homeValue);
 String message = currentProperty.getDwelling();
-int premium2=0;
+double premium2=0;
 switch(message){
 case "single-family":
-	 premium2 = (int) (premium1*.005);
+	 premium2 =  (premium1*.005);
 	break;
 case "condo":
 case "duplex":
 case "apartment":
- premium2 = (int) (premium1*.006);
+ premium2 =  (premium1*.006);
  break;
 case "townhouse":
 case "rowhouse":
-premium2 = (int) (premium1*.007);
+premium2 =  (premium1*.007);
 	break;
 }
-int premium = (int) (premium1+premium2);
-int mothlyPremium=premium/12;
+double premium =  (premium1+premium2);
+double mothlyPremium=premium/12;
 session.setAttribute("monthlyP", mothlyPremium);
 session.setAttribute("premium", premium);
 session.setAttribute("coverage", dweleingCovereage);
@@ -453,14 +465,17 @@ session.setAttribute("deductable", deductable);
 
 RequestDispatcher rd = request.getRequestDispatcher("CoverageDetails.jsp");
 rd.forward(request, response);
-
+	}
+	else {
+		response.sendRedirect("main");
+	}
 }
 
 /********************************************saving coverage info*************************************************/
 private void saveCoverageDetails(HttpServletRequest request, HttpServletResponse response)
 		throws SQLException, IOException, ServletException {
 	HttpSession session = request.getSession();
-	
+	if(session.getAttribute("currentUser")!=null) {
 	Object monthlyP =  session.getAttribute("monthlyP");
 	Object coverage = session.getAttribute("coverage");
 	Object detachedStructors = session.getAttribute("detacheStructure");
@@ -477,6 +492,10 @@ private void saveCoverageDetails(HttpServletRequest request, HttpServletResponse
 	CDDAO.StoreCoverageDetails(NCD);
 	
 	response.sendRedirect("DetailsPolicy");
+	}
+	else {
+		response.sendRedirect("main");
+	}
 
 	
 }
@@ -484,42 +503,68 @@ private void saveCoverageDetails(HttpServletRequest request, HttpServletResponse
 private void DetailsPolicy(HttpServletRequest request, HttpServletResponse response)
 		throws SQLException, IOException, ServletException {
 	HttpSession session = request.getSession();
+	if(session.getAttribute("currentUser")!=null) {
 	
 	RequestDispatcher rd = request.getRequestDispatcher("details.jsp");
 	rd.forward(request, response);
-
+	}
+	else {
+		response.sendRedirect("main");
+	}
 }
 private void quoteSummary(HttpServletRequest request, HttpServletResponse response)
 		throws SQLException, IOException, ServletException {
 	HttpSession session = request.getSession();
-	
+	if(session.getAttribute("currentUser")!=null) {
 	RequestDispatcher rd = request.getRequestDispatcher("buy.jsp");
 	rd.forward(request, response);
-	
+	}
+	else {
+		response.sendRedirect("main");
+	}
 }
 private void detailsToBuy(HttpServletRequest request, HttpServletResponse response)
 		throws SQLException, IOException, ServletException {
 	HttpSession session = request.getSession();
-	
+	if(session.getAttribute("currentUser")!=null) {
 	response.sendRedirect("quoteSummary");
-	
+	}
+	else {
+		response.sendRedirect("main");
+	}
 			
 }
 private void Date(HttpServletRequest request, HttpServletResponse response)
 		throws SQLException, IOException, ServletException {
 	HttpSession session = request.getSession();
+	if(session.getAttribute("currentUser")!=null) {
 	RequestDispatcher rd = request.getRequestDispatcher("buyPolicy.jsp");
 	rd.forward(request, response);
-	
+	}
+	else {
+		response.sendRedirect("main");
+	}
 
 }
 private void toTheDate(HttpServletRequest request, HttpServletResponse response)
 		throws SQLException, IOException, ServletException {
 	HttpSession session = request.getSession();
-	
+	if(session.getAttribute("currentUser")!=null) {
 	response.sendRedirect("Date");
-	
+	}
+	else {
+		response.sendRedirect("main");
+	}
 }
-
+private void buyingPolicy(HttpServletRequest request, HttpServletResponse response)
+		throws SQLException, IOException, ServletException {
+	HttpSession session = request.getSession();
+	if(session.getAttribute("currentUser")!=null) {
+		
+	}
+	else {
+		response.sendRedirect("main");
+	}
+}
 
 }
