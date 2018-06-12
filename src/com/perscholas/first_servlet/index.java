@@ -410,31 +410,31 @@ private void calculateCoverageDetails(HttpServletRequest request, HttpServletRes
 	HttpSession session = request.getSession();
 	if(session.getAttribute("currentUser")!=null) {
 	property_info currentProperty = (property_info) session.getAttribute("currentPropertyInfo");
-	int value =  Integer.parseInt(currentProperty.getValue());
+	double value =  Double.parseDouble(currentProperty.getValue());
 	int year = Integer.parseInt(currentProperty.getYear());
 	int footage = Integer.parseInt(currentProperty.getFootage());
 	
 	int homeValue = footage*120;
 	
 	int ALC = 5000;
-	int deductable = (int) (.01*homeValue);
+	double deductable = (int) (.01*homeValue);
 	int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 	int difference = currentYear-year;
-	int reduction=0;
+	double reduction=0;
 	if(difference<5) {
-		reduction =(int) (.1*homeValue);
+		reduction = (.1*homeValue);
 	}else if(difference<10){
-		reduction = (int) (.2*homeValue);
+		reduction =  (.2*homeValue);
 	}else if(difference<20) {
-		reduction = (int) (.3*homeValue);
+		reduction =  (.3*homeValue);
 	}else if(difference>20) {
-		reduction=(int) (.5*homeValue);
+		reduction= (.5*homeValue);
 	}
-	int dweleingCovereage = (int) (.50*value+homeValue);
+	double dweleingCovereage = (double) (.50*value+homeValue);
 	double rate = (double) 0.005;
-	int detacheStructure = (int) (.10*dweleingCovereage);
-	int personalProperty = (int) (.60*dweleingCovereage);
-	int living = (int) (.20*dweleingCovereage);
+	double detacheStructure = (double) (.10*dweleingCovereage);
+	double personalProperty = (double) (.60*dweleingCovereage);
+	double living = (double) (.20*dweleingCovereage);
 	double premium1 =  (rate*homeValue);
 String message = currentProperty.getDwelling();
 double premium2=0;
@@ -491,7 +491,7 @@ private void saveCoverageDetails(HttpServletRequest request, HttpServletResponse
 	CoverageDetailsDAO CDDAO = new CoverageDetailsDAO();
 	CDDAO.StoreCoverageDetails(NCD);
 	
-	response.sendRedirect("DetailsPolicy");
+	response.sendRedirect("quoteSummary");
 	}
 	else {
 		response.sendRedirect("main");

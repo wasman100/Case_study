@@ -126,19 +126,19 @@
   </tr>
   <tr>
     <td class="tg-yw4l">Market Value</td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
+    <td class="tg-yw4l"><%=MV %></td>
     <td class="tg-yw4l">Monthly Premium</td>
     <td class="tg-yw4l"><%=monthly %></td>
   </tr>
   <tr>
     <td class="tg-yw4l">Year Built</td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
+    <td class="tg-yw4l"><%=built %></td>
     <td class="tg-yw4l">Dwelling Coverage</td>
     <td class="tg-yw4l"><%=dc %></td>
   </tr>
   <tr>
     <td class="tg-yw4l">Square Footage</td>
-    <td class="tg-yw4l">&lt;% %&gt;</td>
+    <td class="tg-yw4l"><%=footage %></td>
     <td class="tg-yw4l">Detached Structures</td>
     <td class="tg-yw4l"><%=detached %></td>
   </tr>

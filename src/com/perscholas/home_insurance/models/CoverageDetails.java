@@ -7,7 +7,7 @@ public class CoverageDetails {
 	private double DetachedStructorsl;
 	private double PersonalProperty;
 	private double Additional;
-	private double  Medical;
+	private int  Medical;
 	private double deductible;
 	private String quote_id;
 	
@@ -44,7 +44,7 @@ public class CoverageDetails {
 		DetachedStructorsl =  (double) detachedStructors;
 		PersonalProperty =  (double) personalProperty;
 		Additional =  (double) living;
-		Medical =  (double) aLC;
+		Medical =  (int) aLC;
 		this.deductible =  (double) deductible;
 		
 		
