@@ -6,27 +6,32 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Get Quote Page</title>
+<%@page import ="java.sql.DriverManager" %>
+<%@page import ="java.sql.ResultSet" %>
+<%@page import ="java.sql.Statement" %>
+<%@page import ="java.sql.Connection" %>
+
+<% String driverName = "com.mysql.jdbc.Driver";
+	String connectionURL = "jdbc:mysql://localhost:3306/";
+	String dbName="homeinsurance";
+	String userID ="root";
+	String password="root";
+	
+	try{
+	Class.forName(driverName);
+	} catch (ClassNotFoundException e){
+	e.printStackTrace();
+	}
+	Connection conn = null;
+	Statement stmt = null;
+	ResultSet result= null;
+	%>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style type="text/css">
  <%@include file="css/styles.css" %>
 </style>
-<%
-	Object address = session.getAttribute("address");
-%>
-<%
-	Object state = session.getAttribute("state");
-%>
-<%
-	Object city = session.getAttribute("city");
-%>
-<%
-	Object zip = session.getAttribute("zip");
-%>
-<%
-	Object type = session.getAttribute("type");
-%>
-<%Object use = session.getAttribute("use");%>
+
 </head>
 <body>
 <body>
@@ -65,13 +70,17 @@
 					<th>Status</th>
 					<th>Rest of Information</th>
 				</tr>
+				<%try {
+					conn=DriverManager.getConnection(connectionURL+dbName, userID, password);
+					stmt=conn.createStatement%>
+				}
 				<td>1</td>
-				<td><%=type%></td>
-				<td><%=address%></td>
-				<td><%=city%></td>
-				<td><%=state%></td>
-				<td><%=zip%></td>
-				<td><%=use%></td>
+				<td></td>
+				<td></td>
+				<td>></td>
+				<td></td>
+				<td></td>
+				<td></td>
 				<td>New</td>
 				<td><a href="buy.jsp">Click</a></td>
 				</tr>
